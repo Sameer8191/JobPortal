@@ -1,5 +1,6 @@
 import Job from "../models/job.model.js";
 import Application from "../models/application.model.js";
+import { uploadToCloudinary } from "../utils/cloudinary.upload.js";
 
 //create a new job(only by admin)
 
@@ -90,7 +91,7 @@ export const createJob = async (req, res) => {
     console.error("Error creating job:", error);
     return res.status(500).json({
       success: false,
-      message: error.message || 'Internal Server Error',
+      message: error.message || "Internal Server Error",
     });
   }
 };
@@ -219,7 +220,7 @@ export const getDashboardStats = async (req, res) => {
 
 //get all jobs posted by the admin
 
-export const getJobsyAdmin = async (req,res) => {
+export const getJobsyAdmin = async (req, res) => {
   try {
     const jobs = await Job.find().sort({ createdAt: -1 });
 
@@ -266,7 +267,7 @@ export const getJobsyAdmin = async (req,res) => {
 
 // get the job by id
 
-export const getJobById = async (req,res) => {
+export const getJobById = async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
 
@@ -406,7 +407,7 @@ export const deleteJob = async (req, res) => {
       });
     }
 
-    await Application.deleteMany({job:req.params.id})
+    await Application.deleteMany({ job: req.params.id });
     await job.deleteOne();
 
     res.status(200).json({
@@ -423,30 +424,27 @@ export const deleteJob = async (req, res) => {
 
 //to close a job opening
 
-export const closeJob = async(req,res) =>{
+export const closeJob = async (req, res) => {
   try {
-
     const job = await Job.findById(req.params.id);
-    if(!job){
+    if (!job) {
       return res.status(404).json({
-        success:false,
-        message:"Job is not found"
-      })
+        success: false,
+        message: "Job is not found",
+      });
     }
 
-    job.status = "closed"
+    job.status = "closed";
     await job.save();
     return res.status(200).json({
-      success:true,
-      message:"Job closed successfully",
-      job
-    })
-    
+      success: true,
+      message: "Job closed successfully",
+      job,
+    });
   } catch (error) {
     console.error("Error closing job:", error);
     return res
       .status(500)
       .json({ success: false, message: error.message || "Server error" });
-    
   }
-}
+};

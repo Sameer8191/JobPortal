@@ -4,7 +4,7 @@ const interviewRoleSchema = new mongoose.Schema(
   {
     roleName: {
       type: String,
-      requied: true,
+      required: true,
       unique: true,
     },
     image: {

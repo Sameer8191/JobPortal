@@ -59,6 +59,20 @@ export const addInterviewCompany = async (req, res) => {
   }
 };
 
+//get Companies containing questions
+
+export const getInterviewCompanies = async (req, res) => {
+  try {
+    const companies = await InterviewCompany.find().sort({ createdAt: -1 });
+    res.status(200).json({
+      success: true,
+      companies,
+    });
+  } catch (err) {
+    handleError(res, err);
+  }
+};
+
 //now to get questions for that company
 
 export const getInterviewQuestionsByCompany = async (req, res) => {
@@ -72,7 +86,7 @@ export const getInterviewQuestionsByCompany = async (req, res) => {
     res.status(200).json({
       success: true,
       company,
-      questions,
+      question,
     });
   } catch (err) {
     handleError(res, err);

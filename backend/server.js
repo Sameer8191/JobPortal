@@ -9,6 +9,8 @@ import userRouter from "./routes/user.routes.js";
 import companyRouter from "./routes/company.routes.js";
 import jobRouter from "./routes/job.routes.js";
 import applicationRouter from "./routes/application.routes.js";
+import interviewRouter from "./routes/interview.routes.js";
+import saveRouter from "./routes/saved.routes.js"
 
 const app = express();
 
@@ -30,6 +32,8 @@ app.use("/api/user", userRouter);
 app.use("/api/company", companyRouter);
 app.use("/api/job", jobRouter);
 app.use("/api/application",applicationRouter)
+app.use("/api/interview",interviewRouter)
+app.use("/api/saved",saveRouter);
 
 app.get("/", (req, res) => {
   res.send("Api Working");

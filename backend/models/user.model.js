@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema(
         ref: "Job",
       },
     ],
-    savedInterviewQuestion: [
+    savedInterviewQuestions: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "InterviewQuestion",
